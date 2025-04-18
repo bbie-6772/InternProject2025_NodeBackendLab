@@ -30,7 +30,7 @@ export class UserSession {
             await new Promise((resolve) => setTimeout(() => resolve(), 60000));
             this.isOpen = false;
             // console.log("끝");
-            this.countUpload();
+            await this.countUpload();
         }, delay)
     }
 
@@ -48,11 +48,11 @@ export class UserSession {
         this.users.delete(id);
     }
 
-    countUpload() {
-        this.users.forEach(async (user, id) => {
-            if (!user.lastClick || user.hasFailed ) return;
-            await this.jobQueue.enqueue(() => this.userRepository.updateCount(user.clickCounts, user.lastClick, id));
-        })
+    async countUpload() {
+        await Promise.all(Array.from(this.users.entries()).map(([id, user]) => {
+            if (!user.lastClick || user.hasFailed) return Promise.resolve();
+            return this.jobQueue.enqueue(() => this.userRepository.updateCount(user.clickCounts, user.lastClick, id));
+        }));  
     }
 
     async getWinner () {
