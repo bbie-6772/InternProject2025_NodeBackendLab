@@ -140,6 +140,8 @@ class Client {
     click = async () => {
         const payload = {};
         this.sendPacket(config.header.packetType.C_CLICK_REQUEST, payload);
+
+        setTimeout(this.click, Math.random() * 11000 )
     }
 }
 
@@ -160,13 +162,15 @@ const customTest = async (client_count = 1, next = 0) => {
             );
 
             // 메서드 적용
+            await client.registerRequest();
             await client.createUser();
+            await client.click();
         }),
     );
 };
 
 // 부하 테스트 실행문
-for (let i = 0; i < 1; i++) {
-    await customTest(1, i);
-    await new Promise((resolve) => setTimeout(() => resolve(), 10000));
+for (let i = 0; i < 5; i++) {
+    await customTest(5, i);
+    await new Promise((resolve) => setTimeout(() => resolve(), 1000));
 }
