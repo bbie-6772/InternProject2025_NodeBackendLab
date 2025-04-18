@@ -52,7 +52,7 @@ export class UserSession {
         })
     }
 
-    getWinner() {
-
+    async getWinner () {
+        return await userRepository.enqueue(userRepository.getWinner);
     }
 }
