@@ -1,4 +1,6 @@
+import cluster from 'cluster';
 import { User } from "../models/user.class.js";
+import { clusterQueue } from '../../session.js';
 
 export class UserSession {
     constructor(hour, minute, jobQueue, userRepository) {
@@ -26,11 +28,13 @@ export class UserSession {
 
         this.timer = setTimeout( async ()=> {
             this.isOpen = true;
-            // console.log("시작됨");
+            console.log("시작됨");
             await new Promise((resolve) => setTimeout(() => resolve(), 60000));
             this.isOpen = false;
-            // console.log("끝");
+            console.log("끝");
             await this.countUpload();
+
+            setTimeout(async () => console.log(await this.getWinner()), 5000);
         }, delay)
     }
 
@@ -51,11 +55,28 @@ export class UserSession {
     async countUpload() {
         await Promise.all(Array.from(this.users.entries()).map(([id, user]) => {
             if (!user.lastClick || user.hasFailed) return Promise.resolve();
-            return this.jobQueue.enqueue(() => this.userRepository.updateCount(user.clickCounts, user.lastClick, id));
+
+            if (cluster.isWorker)
+                return clusterQueue.sendRequestToMaster({
+                    method: "updateCount", 
+                    args: [user.clickCounts, user.lastClick, id] 
+                });
+            else
+                return this.jobQueue.enqueue(() => 
+                    this.userRepository.updateCount(user.clickCounts, user.lastClick, id)
+                );
         }));  
     }
 
     async getWinner () {
-        return await this.jobQueue.enqueue(() => this.userRepository.getWinner());
+        if (cluster.isWorker)
+            return await clusterQueue.sendRequestToMaster({
+                method: "getWinner",
+                args: []
+            });
+        else
+            return await this.jobQueue.enqueue(() => 
+                this.userRepository.getWinner()
+            );
     }
 }

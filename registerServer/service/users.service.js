@@ -1,3 +1,6 @@
+import cluster from "cluster";
+import { clusterQueue } from "../../eventServer/session.js";
+
 export class UsersService {
     constructor(userRepository, parseJson, jobQueue) {
         this.userRepository = userRepository;
@@ -8,7 +11,19 @@ export class UsersService {
     createUser = async (req, res) => {
         await this.parseJson(req, res);
         const { name, address } = req.body
-        if (!await this.jobQueue.enqueue(() => this.userRepository.createUser(name, address)))
+
+        let isSuccess = false;
+        if (cluster.isWorker) {
+            isSuccess = await clusterQueue.sendRequestToMaster({
+                method: "createUser",
+                args: [name, address]
+            });
+        } else 
+            isSuccess = await this.jobQueue.enqueue(() => 
+                this.userRepository.createUser(name, address)
+            );
+        
+        if (!isSuccess)
             throw new Error("계정 생성 실패");
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
