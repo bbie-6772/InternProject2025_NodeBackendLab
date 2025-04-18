@@ -3,14 +3,14 @@ import assert from 'assert';
 import { config } from '../../common/config/config.js';
 
 class Client {
-    constructor (name, password, registerHost, registerPort, eventHost, eventPort) {
+    constructor (name, address, registerHost, registerPort, eventHost, eventPort) {
         this.registerHost = registerHost;
         this.registerPort = registerPort;
         this.eventHost = eventHost;
         this.eventPort = eventPort;
 
         this.name = name;
-        this.password = password;
+        this.address = address;
         this.token = null;
     }
 
@@ -53,7 +53,7 @@ class Client {
 
     registerRequest = async () => {
         const expectedResponse = JSON.stringify({ results: 'Success' });
-        const data = JSON.stringify({ name: this.name, password: this.password });
+        const data = JSON.stringify({ name: this.name, address: this.address });
         const results = await this.httpRequestTest('/register', 'POST', 200, expectedResponse, data);
         console.log('Register response passed');  
     }
@@ -64,7 +64,7 @@ const customTest = async (client_count = 1, next = 0) => {
     await Promise.all(
         Array.from({ length: client_count }, async (__, idx) => {
             const name = `dummy${next * client_count + idx}`;
-            const password = '123456';
+            const password = 'Republic of Korea';
 
             const client = new Client(
                 name,
