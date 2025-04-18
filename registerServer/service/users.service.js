@@ -1,12 +1,11 @@
-import { parseJson } from "../middleware/parseJson.js";
-
 export class UsersService {
-    constructor(userRepository) {
+    constructor(userRepository, parseJson) {
         this.userRepository = userRepository;
+        this.parseJson = parseJson;
     }
  
     createUser = async (req, res) => {
-        await parseJson(req, res);
+        await this.parseJson(req, res);
         const { name, address } = req.body
         if (!await this.userRepository.enqueue(this.userRepository.createUser, name, address))
             throw new Error("계정 생성 실패");

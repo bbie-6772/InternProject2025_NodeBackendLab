@@ -1,10 +1,8 @@
 export const parseJson = async (req, res) => {
     return await new Promise((resolve, reject) => {
-        if (req.headers['content-type'] !== 'application/json') {
-            res.writeHead(404);
-            res.end();
-            return;
-        }
+        if (req.headers['content-type'] !== 'application/json')
+            throw new Error("Json 파싱 실패");
+
         let body = '';
 
         req.on('data', chuck => {
