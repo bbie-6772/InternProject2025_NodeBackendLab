@@ -1,3 +1,4 @@
+import { userRepository } from "../../session.js";
 import { User } from "../models/user.class.js";
 
 export class UserSession {
@@ -6,7 +7,7 @@ export class UserSession {
         this.startTime = new Date();
         this.startTime.setHours(hour, minute, 0, 0);
         this.timer = null;
-        this.status = false;       
+        this.isOpen = false;       
         this.timerStart();
     }
 
@@ -21,10 +22,10 @@ export class UserSession {
         // console.log(`실행까지 남은시간 ${Math.round(delay / 60000) } 분`);
 
         this.timer = setTimeout( async ()=> {
+            this.isOpen = true;
             // console.log("시작됨");
-            this.status = true;
             await new Promise((resolve) => setTimeout(() => resolve(), 60000));
-            this.status = false;
+            this.isOpen = false;
             // console.log("끝");
             this.countUpload();
         }, delay)
