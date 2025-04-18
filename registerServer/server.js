@@ -27,8 +27,8 @@ const server = http.createServer((req, res) => {
 const startServer = async() => {
     await createSchemas();
 
-    server.listen(config.REGISTER_SERVER.port, config.REGISTER_SERVER.host, () => {
-        console.log(`서버가 http://${config.REGISTER_SERVER.host}:${config.REGISTER_SERVER.port}/ 에서 실행 중입니다.`);
+    server.listen(config.server.register.port, config.server.register.host, () => {
+        console.log(`서버가 http://${config.server.register.host}:${config.server.register.port}/ 에서 실행 중입니다.`);
     });
 }
 

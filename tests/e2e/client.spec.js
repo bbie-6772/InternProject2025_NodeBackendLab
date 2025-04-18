@@ -69,10 +69,10 @@ const customTest = async (client_count = 1, next = 0) => {
             const client = new Client(
                 name,
                 password,
-                config.REGISTER_SERVER.host,
-                config.REGISTER_SERVER.port,
-                config.EVENT_SERVER.host,
-                config.EVENT_SERVER.port
+                config.server.register.host,
+                config.server.register.port,
+                config.server.event.host,
+                config.server.event.port
             );
 
             // 로그인 이후 사용할 메서드 적용
