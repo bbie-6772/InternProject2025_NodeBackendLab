@@ -3,9 +3,9 @@ import { UsersController } from '../../../registerServer/controller/users.contro
 
 async function testCreateUserSuccess() {
     // 1) req, res 최소한 모킹
-    const req = {};
+    const mockReq = {};
     let statusCode, headers, body;
-    const res = {
+    const mockRes = {
         writeHead: (code, headerObj) => {
             statusCode = code;
             headers = headerObj;
@@ -23,7 +23,7 @@ async function testCreateUserSuccess() {
     };
     // 3) 컨트롤러 생성 및 호출  
     const usersController = new UsersController(mockUsersService);
-    await usersController.createUser(req, res);
+    await usersController.createUser(mockReq, mockRes);
 
     // 4) 성공 시 응답이 없으므로 statusCode 등 정의 안 됨  
     assert.strictEqual(statusCode, undefined, "성공 시 statusCode는 설정 안 되어야 함");
@@ -34,9 +34,9 @@ async function testCreateUserSuccess() {
 
 async function testCreateUserError() {
     // 1) req, res 최소한 모킹
-    const req = {};
+    const mockReq = {};
     let statusCode, headers, body;
-    const res = {
+    const mockRes = {
         writeHead: (code, headerObj) => {
             statusCode = code;
             headers = headerObj;
@@ -54,7 +54,7 @@ async function testCreateUserError() {
     };
     // 3) 컨트롤러 생성 및 호출  
     const usersController = new UsersController(mockUsersService);
-    await usersController.createUser(req, res);
+    await usersController.createUser(mockReq, mockRes);
 
     // 4) 성공 시 응답 대조
     assert.strictEqual(statusCode, 400, "오류 시 statusCode는 400 이여야함");

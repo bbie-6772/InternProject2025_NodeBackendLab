@@ -2,7 +2,7 @@ import assert from 'assert';
 import { UsersService } from '../../../registerServer/service/users.service.js';
 
 // req 모킹
-const req = {
+const mockReq = {
     body: { name: "test", address: "address" },
 };
 // parseJson 모킹
@@ -19,7 +19,7 @@ const mockUsersRepository = {
 async function testCreateUserSuccess() {
     // 1) res 최소한 모킹
     let statusCode, headers, body;
-    const res = {
+    const mockRes = {
         writeHead: (code, headerObj) => {
             statusCode = code;
             headers = headerObj;
@@ -36,7 +36,7 @@ async function testCreateUserSuccess() {
     }
     // 3) 서비스 생성 및 호출
     const usersService = new UsersService(mockUsersRepository, mockParsJson, mockJobQueue);
-    await usersService.createUser(req, res);
+    await usersService.createUser(mockReq, mockRes);
 
     // 4) 성공 시 응답 대조
     assert.strictEqual(statusCode, 200, "성공 시 statusCode는 200 이여야함");
@@ -49,7 +49,7 @@ async function testCreateUserSuccess() {
 async function testCreateUserError() {
     // 1) res 최소한 모킹
     let statusCode, headers, body;
-    const res = {
+    const mockRes = {
         writeHead: (code, headerObj) => {
             statusCode = code;
             headers = headerObj;
@@ -67,7 +67,7 @@ async function testCreateUserError() {
     // 3) 서비스 생성 및 호출
     const userService = new UsersService(mockUsersRepository, mockParsJson, mockJobQueue);
     try {
-        await userService.createUser(req, res);
+        await userService.createUser(mockReq, mockRes);
     }catch (err) {
         console.error(err);
     }

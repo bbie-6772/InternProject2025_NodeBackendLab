@@ -5,24 +5,24 @@ import { onData } from '../../../eventServer/events/onData.js';
 async function testOnDataSuccess () {
     let result;
     // 1) socket 모킹
-    const socket = {
+    const mockSocket = {
         buffer : Buffer.alloc(0),
     }
     // 2) data 모킹
-    const data = makePacket(1, { test: "success" });
+    const mockData = makePacket(1, { test: "success" });
     // 3) onEnd 모킹
-    const onEnd = () => () => {
+    const mockOnEnd = () => () => {
         result = false;
     }
     // 4) handlers 모킹 
-    const handlers = {
+    const mockHandlers = {
         1: async ( socket, payload ) => { 
             result = payload;
             return;
          }
     }
     // 5) onData 실행
-    await onData(socket, handlers, onEnd)(data);
+    await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
 
     // 6) 성공 시 응답 대조
     assert.deepStrictEqual(result, { test: "success" }, "성공 시 result 값이 보낸값과 동일해야함");
@@ -32,25 +32,25 @@ async function testOnDataSuccess () {
 
 async function testOnDataFailToDecode() {
     // 1) socket 모킹
-    const socket = {
+    const mockSocket = {
         buffer: Buffer.alloc(0),
     }
     // 2) data 모킹
-    const data = Buffer.alloc(100);
+    const mockData = Buffer.alloc(100);
     // 3) onEnd 모킹
-    const onEnd = () => () => {
+    const mockOnEnd = () => () => {
         result = false;
     }
     let result;
     // 4) handlers 모킹 
-    const handlers = {
+    const mockHandlers = {
         1: async (socket, payload) => {
             result = payload;
             return;
         }
     }
     // 5) onData 실행
-    await onData(socket, handlers, onEnd)(data);
+    await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
 
     // 6) 실패 시 응답 대조
     assert.strictEqual(result, false, " 실패 시 result 값이 false 이어야함")
@@ -61,24 +61,24 @@ async function testOnDataFailToDecode() {
 async function testOnDataFailToDataLength() {
     let result;
     // 1) socket 모킹
-    const socket = {
+    const mockSocket = {
         buffer: Buffer.alloc(0),
     }
     // 2) data 모킹
-    const data = makePacket(1, { test: "success" }).subarray(0, 7);
+    const mockData = makePacket(1, { test: "success" }).subarray(0, 7);
     // 3) onEnd 모킹
-    const onEnd = () => () => {
+    const mockOnEnd = () => () => {
         result = false;
     }
     // 4) handlers 모킹 
-    const handlers = {
+    const mockHandlers = {
         1: async (socket, payload) => {
             result = payload;
             return;
         }
     }
     // 5) onData 실행
-    await onData(socket, handlers, onEnd)(data);
+    await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
 
     // 6) 실패 시 응답 대조
     assert.deepStrictEqual(result, undefined, " 실패 시 result 값이 undefined 이어야함")
@@ -89,24 +89,24 @@ async function testOnDataFailToDataLength() {
 async function testOnDataFailToPacketType() {
     let result;
     // 1) socket 모킹
-    const socket = {
+    const mockSocket = {
         buffer: Buffer.alloc(0),
     }
     // 2) data 모킹
-    const data = makePacket(5, { test: "success" });
+    const mockData = makePacket(5, { test: "success" });
     // 3) onEnd 모킹
-    const onEnd = () => () => {
+    const mockOnEnd = () => () => {
         result = false;
     }
     // 4) handlers 모킹 
-    const handlers = {
+    const mockHandlers = {
         1: async (socket, payload) => {
             result = payload;
             return;
         }
     }
     // 5) onData 실행
-    await onData(socket, handlers, onEnd)(data);
+    await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
 
     // 6) 실패 시 응답 대조
     assert.deepStrictEqual(result, false, " 실패 시 result 값이 undefined 이어야함")
