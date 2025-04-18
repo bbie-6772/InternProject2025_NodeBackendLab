@@ -1,5 +1,6 @@
 export const onEnd = (socket, userSession) => async () => {
-    userSession.deleteUserById(socket.id);
+    if(socket.id)
+        userSession.deleteUserById(socket.id);
 
     socket.end();
     socket.destroy();
