@@ -10,7 +10,7 @@ async function testClickHandlerSuccess() {
     // 1) socket 모킹
     const mockSocket = {
         write: async (packet) => {
-            errorMessage = parsePacket(packet);
+            errorMessage = parsePacket(packet)[1];
         },
         id: 1
     }
@@ -47,7 +47,7 @@ async function testClickHandlerFailToSearch() {
     // 1) socket 모킹
     const mockSocket = {
         write: async (packet) => {
-            errorMessage = parsePacket(packet);
+            errorMessage = parsePacket(packet)[1];
         },
         id: 1
     }

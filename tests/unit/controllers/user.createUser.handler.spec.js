@@ -9,7 +9,7 @@ async function testCreateUserHandlerSuccess () {
     // 1) socket 모킹
     const mockSocket = {
         write : async (packet) => {
-            errorMessage = parsePacket(packet)[0];
+            errorMessage = parsePacket(packet)[1];
         },
         id : 1
     }
@@ -55,7 +55,7 @@ async function testCreateUserHandlerFailToSearch() {
     // 1) socket 모킹
     const mockSocket = {
         write: async (packet) => {
-            errorMessage = parsePacket(packet)[0];
+            errorMessage = parsePacket(packet)[1];
         },
         id: 1
     }
