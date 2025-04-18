@@ -1,13 +1,13 @@
 import cluster from 'cluster';
 import { User } from "../models/user.class.js";
-import { clusterQueue } from '../../session.js';
 
 export class UserSession {
-    constructor(hour, minute, jobQueue, userRepository) {
+    constructor(hour, minute, jobQueue, userRepository, clusterQueue) {
         this.startTime = new Date();
         this.startTime.setHours(hour, minute, 0, 0);
 
         this.jobQueue = jobQueue;
+        this.clusterQueue = clusterQueue;
         this.userRepository = userRepository;
 
         this.users = new Map();
@@ -57,7 +57,7 @@ export class UserSession {
             if (!user.lastClick || user.hasFailed) return Promise.resolve();
 
             if (cluster.isWorker)
-                return clusterQueue.sendRequestToMaster({
+                return this.clusterQueue.sendRequestToMaster({
                     method: "updateCount", 
                     args: [user.clickCounts, user.lastClick, id] 
                 });
@@ -70,7 +70,7 @@ export class UserSession {
 
     async getWinner () {
         if (cluster.isWorker)
-            return await clusterQueue.sendRequestToMaster({
+            return await this.clusterQueue.sendRequestToMaster({
                 method: "getWinner",
                 args: []
             });
