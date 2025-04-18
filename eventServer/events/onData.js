@@ -1,4 +1,5 @@
 import { config } from "../../common/config/config.js";
+import { userRepository, userSession } from "../session.js";
 
 export const onData = (socket, handlers, onEnd ) => async (data) => {
     socket.buffer = Buffer.concat([socket.buffer, data]);
@@ -34,7 +35,8 @@ export const onData = (socket, handlers, onEnd ) => async (data) => {
                 break;
             }
                 
-            await handler( socket, payload );
+            const deps = { userRepository, userSession };
+            await handler( socket, payload, deps );
         }
     } catch (err) {
         console.error(err);

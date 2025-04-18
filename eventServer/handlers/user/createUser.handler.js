@@ -1,9 +1,8 @@
 import { config } from "../../../common/config/config.js";
-import { onEnd } from "../../events/onEnd.js";
-import { userRepository, userSession } from "../../session.js"
 import { makePacket } from "../../utils/packet/makePacket.js";
 
-export const createUserHandler = async (socket, payload) => {
+export const createUserHandler = async (socket, payload, deps) => {
+    const { userRepository, userSession } = deps;
     const { name } = payload;
 
     const results = await userSession.jobQueue.enqueue(() => userRepository.findUser(name) );
@@ -11,8 +10,7 @@ export const createUserHandler = async (socket, payload) => {
         const response = { error: "User not found"};
         const packet = makePacket(config.header.packetType.S_ERROR_NOTIFICATION, response );
         socket.write(packet);
-        onEnd(socket)();
-        return;
+        throw new Error("User not found")
     }
 
     socket.id = results.id;
