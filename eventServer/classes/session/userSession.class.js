@@ -32,6 +32,7 @@ export class UserSession {
     }
 
     addUser (socket) {
+        // console.log("유저 추가됨");
         const user = new User(socket);
         this.users.set(socket.id, user);
     }
@@ -45,7 +46,10 @@ export class UserSession {
     }
 
     countUpload() {
-
+        this.users.forEach(async (user, id) => {
+            if (!user.lastClick || user.hasFailed ) return;
+            await userRepository.enqueue(userRepository.updateCount, user.clickCounts, user.lastClick, id);
+        })
     }
 
     getWinner() {
