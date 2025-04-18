@@ -79,6 +79,6 @@ async function testCreateUserError() {
     console.log("testCreateUserError: 통과");
 }
 
-await testCreateUserError();
 await testCreateUserSuccess();
+await testCreateUserError();
 console.log("UsersService 테스트 완료")
