@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // 데이터베이스 열기 (없으면 새로 생성) 
-export const db = new sqlite.DatabaseSync('./database.sqlite',{ open: true });
+export const db = new sqlite.DatabaseSync('./database.sqlite');
 
 const executeSqlFile = async (filePath) => {
     // 지정 경로의 파일을 읽음
