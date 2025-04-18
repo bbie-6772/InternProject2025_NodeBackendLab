@@ -162,7 +162,7 @@ const customTest = async (client_count = 1, next = 0) => {
             );
 
             // 메서드 적용
-            await client.registerRequest();
+            // await client.registerRequest();
             await client.createUser();
             await client.click();
         }),
