@@ -8,8 +8,8 @@ export const clickHandler = async (socket, payload, deps ) => {
     if(!user) {
         const response = { error: "User not found" };
         const packet = makePacket(config.header.packetType.S_ERROR_NOTIFICATION, response);
-        socket.write(packet);
-        return;
+        await socket.write(packet);
+        throw new Error("User not found")
     }
 
     user.addCount();
