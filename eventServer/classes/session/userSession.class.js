@@ -37,7 +37,7 @@ export class UserSession {
 
     addUser (socket) {
         // console.log("유저 추가됨");
-        const user = new User(socket);
+        const user = new User(this);
         this.users.set(socket.id, user);
     }
 

@@ -1,18 +1,17 @@
-import { userSession } from "../../session.js";
-
 export class User {
-    constructor(socket) {
-        this.socket = socket;
-        this.hasFailed =  false;
+    constructor(userSession) {
+        this.userSession = userSession;
+
         this.lastCounts = [];
         this.timer = null;
         this.clickCounts = 0;
         this.lastClick = null;
+        this.hasFailed = false;
     }
 
     addCount() {
         // console.log(`현재 카운트 수 ${this.clickCounts} / 실패 여부 ${this.hasFailed}`)
-        if(!userSession.isOpen || this.hasFailed ) return;
+        if(!this.userSession.isOpen || this.hasFailed ) return;
         const now = new Date();
 
         this.lastCounts.push(now);
