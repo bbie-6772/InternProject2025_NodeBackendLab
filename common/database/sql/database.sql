@@ -5,3 +5,4 @@ CREATE TABLE IF NOT EXISTS users (
   click_count INTEGER DEFAULT 0,
   last_click  DATETIME DEFAULT CURRENT_TIMESTAMP
 );  
+PRAGMA busy_timeout = 5000; 
