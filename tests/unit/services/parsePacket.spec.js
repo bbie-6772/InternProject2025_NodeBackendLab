@@ -34,6 +34,9 @@ async function testParsePacketInvalidPacket() {
     console.log("testParsePacketInvalidPacket: 통과");
 }
 
-await testParsePacketSuccess();
-await testParsePacketInvalidPacket();
+await Promise.all([
+    testParsePacketSuccess,
+    testParsePacketInvalidPacket,
+])
+
 console.log("parsePacket 테스트 완료")

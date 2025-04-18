@@ -64,6 +64,9 @@ async function testCreateUserError() {
     console.log("testCreateUserError: 통과");
 } 
 
-await testCreateUserError();
-await testCreateUserSuccess();
+await Promise.all([
+    testCreateUserError,
+    testCreateUserSuccess,
+])
+
 console.log("UsersController 테스트 완료")

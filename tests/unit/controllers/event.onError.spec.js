@@ -57,6 +57,9 @@ async function testOnErrorFailToNoId() {
     console.log("testOnErrorFailToNoId: 통과");
 }
 
-await testOnErrorSuccess();
-await testOnErrorFailToNoId();
+await Promise.all([
+    testOnErrorSuccess,
+    testOnErrorFailToNoId,
+])
+
 console.log("onError 테스트 완료 ")

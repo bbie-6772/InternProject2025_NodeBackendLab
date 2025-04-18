@@ -110,8 +110,11 @@ async function testOnDataFailToPacketType() {
     console.log("testOnDataFailToPacketType: 통과")
 }
 
-await testOnDataSuccess();
-await testOnDataFailToDecode();
-await testOnDataFailToDataLength();
-await testOnDataFailToPacketType();
+await Promise.all([
+    testOnDataSuccess,
+    testOnDataFailToDecode,
+    testOnDataFailToDataLength,
+    testOnDataFailToPacketType,
+])
+
 console.log("onData 테스트 완료")
