@@ -1,12 +1,14 @@
-import { userRepository } from "../../session.js";
 import { User } from "../models/user.class.js";
 
 export class UserSession {
-    constructor(hour, minute, jobQueue) {
-        this.users = new Map();
+    constructor(hour, minute, jobQueue, userRepository) {
         this.startTime = new Date();
         this.startTime.setHours(hour, minute, 0, 0);
+
         this.jobQueue = jobQueue;
+        this.userRepository = userRepository;
+
+        this.users = new Map();
         this.timer = null;
         this.isOpen = false;       
         this.timerStart();
