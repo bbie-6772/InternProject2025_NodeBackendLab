@@ -22,8 +22,8 @@ async function testCreateUserSuccess() {
         }
     };
     // 3) 컨트롤러 생성 및 호출  
-    const controller = new UsersController(mockUsersService);
-    await controller.createUser(req, res);
+    const usersController = new UsersController(mockUsersService);
+    await usersController.createUser(req, res);
 
     // 4) 성공 시 응답이 없으므로 statusCode 등 정의 안 됨  
     assert.strictEqual(statusCode, undefined, "성공 시 statusCode는 설정 안 되어야 함");
@@ -53,8 +53,8 @@ async function testCreateUserError() {
         }
     };
     // 3) 컨트롤러 생성 및 호출  
-    const controller = new UsersController(mockUsersService);
-    await controller.createUser(req, res);
+    const usersController = new UsersController(mockUsersService);
+    await usersController.createUser(req, res);
 
     // 4) 성공 시 응답 대조
     assert.strictEqual(statusCode, 400, "오류 시 statusCode는 400 이여야함");
@@ -66,4 +66,4 @@ async function testCreateUserError() {
 
 await testCreateUserError();
 await testCreateUserSuccess();
-console.log("UserController 테스트 완료")
+console.log("UsersController 테스트 완료")
