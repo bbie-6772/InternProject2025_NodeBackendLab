@@ -28,10 +28,10 @@ export class UserSession {
 
         this.timer = setTimeout( async ()=> {
             this.isOpen = true;
-            console.log("시작됨");
+            // console.log("시작");
             await new Promise((resolve) => setTimeout(() => resolve(), 60000));
             this.isOpen = false;
-            console.log("끝");
+            // console.log("끝");
             await this.countUpload();
 
             setTimeout(async () => console.log(await this.getWinner()), 5000);
