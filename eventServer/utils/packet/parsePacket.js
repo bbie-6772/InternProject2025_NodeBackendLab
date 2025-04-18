@@ -10,12 +10,12 @@ export const parsePacket = (packet) => {
         payloadByte = packet.readUInt32BE(packetTypeByte);
     } catch (err) {
         console.error("payload 읽기 실패", err);
-        return null;
+        return [];
     }
     
     if (packet.length < defaultLength + payloadByte) {
         console.error("패킷 길이 부족")
-        return null;
+        return [];
     }
 
     const packetType = packet.readUInt16BE(0);
@@ -26,10 +26,10 @@ export const parsePacket = (packet) => {
         payload = JSON.parse(payloadString);
     } catch (err) {
         console.error("JSON 파싱 실패:", err);
-        return null;
+        return [];
     }
 
-    return payload;
+    return [packetType , payload];
 }
 
 
