@@ -6,7 +6,7 @@ import { makePacket } from "../../utils/packet/makePacket.js";
 export const createUserHandler = async (socket, payload) => {
     const { name } = payload;
 
-    const results = await userRepository.enqueue(userRepository.findUser, name);
+    const results = await userSession.jobQueue.enqueue(() => userRepository.findUser(name) );
     if (!results) {
         const response = { error: "User not found"};
         const packet = makePacket(config.header.packetType.S_ERROR_NOTIFICATION, response );

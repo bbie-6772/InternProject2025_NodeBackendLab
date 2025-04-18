@@ -1,11 +1,15 @@
+
 import { userRepository } from "../../session.js";
 import { User } from "../models/user.class.js";
 
+JobQueue
+
 export class UserSession {
-    constructor(hour, minute) {
+    constructor(hour, minute, jobQueue) {
         this.users = new Map();
         this.startTime = new Date();
         this.startTime.setHours(hour, minute, 0, 0);
+        this.jobQueue = jobQueue;
         this.timer = null;
         this.isOpen = false;       
         this.timerStart();
@@ -48,11 +52,11 @@ export class UserSession {
     countUpload() {
         this.users.forEach(async (user, id) => {
             if (!user.lastClick || user.hasFailed ) return;
-            await userRepository.enqueue(userRepository.updateCount, user.clickCounts, user.lastClick, id);
+            await this.jobQueue.enqueue(() => userRepository.updateCount(user.clickCounts, user.lastClick, id));
         })
     }
 
     async getWinner () {
-        return await userRepository.enqueue(userRepository.getWinner);
+        return await this.jobQueue.enqueue(() => userRepository.getWinner());
     }
 }
