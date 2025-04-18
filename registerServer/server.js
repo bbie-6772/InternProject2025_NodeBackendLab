@@ -1,8 +1,8 @@
 import http from 'http';
 import { routes } from './routes/routes.js';
 import { config } from '../common/config/config.js';
+import cluster from 'cluster';
 import { createSchemas } from '../common/database/database.js';
-
 
 const server = http.createServer((req, res) => {
     const methodRoutes = routes[req.method];
@@ -25,11 +25,13 @@ const server = http.createServer((req, res) => {
 });
 
 export const startRegisterServer = async(port) => {
-    await createSchemas();
+    if (!cluster.isWorker && !cluster.isPrimary)
+        await createSchemas();
 
     server.listen(port, () => {
         console.log(`서버가 ${port} 에서 실행 중입니다.`);
     });
 }
 
-// startRegisterServer(config.server.register.port)
+if (!cluster.isWorker && !cluster.isPrimary)
+    startRegisterServer(config.server.register.port);
