@@ -1,17 +1,24 @@
 import http from 'http';
+import net from 'net';
 import assert from 'assert';
 import { config } from '../../common/config/config.js';
 
 class Client {
     constructor (name, address, registerHost, registerPort, eventHost, eventPort) {
+        // HTTP 통신
         this.registerHost = registerHost;
         this.registerPort = registerPort;
-        this.eventHost = eventHost;
-        this.eventPort = eventPort;
 
         this.name = name;
         this.address = address;
         this.token = null;
+
+        // TCP 통신
+        this.eventHost = eventHost;
+        this.eventPort = eventPort;
+
+        this.socket = new net.Socket();
+        this.socket.connect(this.eventPort, this.eventHost, this.onConnections);
     }
 
     httpRequestTest = async (path, method, expectedStatus, expectedBody, data = '') => {
@@ -54,8 +61,55 @@ class Client {
     registerRequest = async () => {
         const expectedResponse = JSON.stringify({ results: 'Success' });
         const data = JSON.stringify({ name: this.name, address: this.address });
-        const results = await this.httpRequestTest('/register', 'POST', 200, expectedResponse, data);
+        await this.httpRequestTest('/register', 'POST', 200, expectedResponse, data);
         console.log('Register response passed');  
+    }
+
+    onConnections = async () => {
+        console.log("TCP 서버와 연결되었습니다.")
+        this.socket.on('end', this.onEnd);
+        this.socket.on('data', this.onData);
+        this.socket.on('error', this.onError)
+    }
+
+    onData = async (data) => {
+    }
+
+    onError = async (err) => {
+        console.error(err);
+    }
+
+    onEnd = async () => {
+        console.log("TCP 서버와의 연결이 끊어졌습니다.")
+    }
+
+    sendPacket = (packetType, payload) => {
+        const payloadString = JSON.stringify(payload);
+        const payloadBuffer = Buffer.from(payloadString, 'utf8');
+
+        const packetTypeBuffer = Buffer.alloc(2);
+        packetTypeBuffer.writeUInt16BE(packetType);
+
+        const payloadLengthBuffer = Buffer.alloc(4);
+        payloadLengthBuffer.writeUInt32BE(payloadBuffer.length);
+
+        const packet = Buffer.concat([
+            packetTypeBuffer,
+            payloadLengthBuffer,
+            payloadBuffer
+        ])
+
+        this.socket.write(packet);
+    }
+
+    createUser = async () => {
+        const payload = { name : this.name }
+        this.sendPacket(config.header.packetType.C_LOGIN_REQUEST, payload);
+    }
+
+    click = async () => {
+        const payload = {};
+        this.sendPacket(config.header.packetType.C_CLICK_REQUEST, payload);
     }
 }
 
