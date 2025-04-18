@@ -1,17 +1,27 @@
 import http from 'http';
+import { routes } from './routes/routes.js';
 import { config } from '../common/config/config.js';
-import { usersRouter } from './routes/users.router.js';
-import { createSchemas } from './database/database.js';
+import { createSchemas } from '../common/database/database.js';
 
-const routes = { ...usersRouter,};  
 
 const server = http.createServer((req, res) => {
-    const handler = routes[req.url];
-    if (handler) handler(req, res);
-    else {
+    const methodRoutes = routes[req.method];
+    if (!methodRoutes) {
+        res.writeHead(405, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+        return;
+    }  
+
+    // 쿼리 스트링 제외
+    const path = req.url.split('?')[0];
+    const handler = methodRoutes[path];
+    if (!handler) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end('404 ERROR - Can not find page');
+        res.end(JSON.stringify({ error: 'Not found' }));
+        return;   
     }
+
+    handler(req, res);
 });
 
 const startServer = async() => {
