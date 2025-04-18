@@ -38,7 +38,6 @@ async function testCreateUserHandlerSuccess () {
         await createUserHandler(mockSocket, mockPayload, mockDeps);
     } catch (err) {
         errorCalled = true;
-        console.error(err);
     }
     // 5) 성공 시 값 대조
     assert.strictEqual(errorMessage, null, "성공 시 오류 메시지는 null 이여야함");
@@ -85,7 +84,6 @@ async function testCreateUserHandlerFailToSearch() {
         await createUserHandler(mockSocket, mockPayload, mockDeps);
     } catch (err) {
         errorCalled = true;
-        console.error(err);
     }
     // 5) 실패 시 값 대조
     assert.deepStrictEqual(errorMessage, { error: "User not found" }, "실패 시 오류 메시지는 { error: User not found} 이여야함");
