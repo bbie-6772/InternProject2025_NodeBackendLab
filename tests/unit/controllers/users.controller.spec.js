@@ -48,8 +48,7 @@ async function testCreateUserError() {
     // 2) usersService의 createUser 모킹 
     const mockUsersService = {
         createUser: async (req, res) => {
-            // 실패 케이스, 오류 반환
-            throw new Error('some error'); 
+            throw new Error; 
         }
     };
     // 3) 컨트롤러 생성 및 호출  
