@@ -1,8 +1,5 @@
-
 import { userRepository } from "../../session.js";
 import { User } from "../models/user.class.js";
-
-JobQueue
 
 export class UserSession {
     constructor(hour, minute, jobQueue) {
@@ -35,10 +32,10 @@ export class UserSession {
         }, delay)
     }
 
-    addUser (socket) {
+    addUser(id) {
         // console.log("유저 추가됨");
         const user = new User(this);
-        this.users.set(socket.id, user);
+        this.users.set(id, user);
     }
 
     getUserById (id) {

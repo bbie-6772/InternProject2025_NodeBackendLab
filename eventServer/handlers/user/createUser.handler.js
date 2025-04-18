@@ -14,5 +14,5 @@ export const createUserHandler = async (socket, payload, deps) => {
     }
 
     socket.id = results.id;
-    userSession.addUser(socket);
+    userSession.addUser(socket.id);
 }
