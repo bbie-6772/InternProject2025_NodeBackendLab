@@ -51,11 +51,11 @@ export class UserSession {
     countUpload() {
         this.users.forEach(async (user, id) => {
             if (!user.lastClick || user.hasFailed ) return;
-            await this.jobQueue.enqueue(() => userRepository.updateCount(user.clickCounts, user.lastClick, id));
+            await this.jobQueue.enqueue(() => this.userRepository.updateCount(user.clickCounts, user.lastClick, id));
         })
     }
 
     async getWinner () {
-        return await this.jobQueue.enqueue(() => userRepository.getWinner());
+        return await this.jobQueue.enqueue(() => this.userRepository.getWinner());
     }
 }
