@@ -26,6 +26,6 @@ export const createUserHandler = async (socket, payload, deps) => {
     socket.id = results.id;
     userSession.addUser(socket.id);
     
-    const packet = makePacket(config.header.packetType.S_LOGIN_RESPONSE, {});
+    const packet = makePacket(config.header.packetType.S_LOGIN_RESPONSE, { results: "success"});
     await socket.write(packet);
 }

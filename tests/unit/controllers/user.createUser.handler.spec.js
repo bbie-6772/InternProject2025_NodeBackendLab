@@ -3,13 +3,13 @@ import { createUserHandler } from "../../../eventServer/handlers/user/createUser
 import { parsePacket } from "../../../eventServer/utils/packet/parsePacket.js"
 
 async function testCreateUserHandlerSuccess () {
-    let errorMessage = null;
+    let message = null;
     let errorCalled = false;
     let addUserCalled = false;
     // 1) socket 모킹
     const mockSocket = {
         write : async (packet) => {
-            errorMessage = parsePacket(packet)[1];
+            message = parsePacket(packet)[1];
         },
         id : 1
     }
@@ -40,7 +40,7 @@ async function testCreateUserHandlerSuccess () {
         errorCalled = true;
     }
     // 5) 성공 시 값 대조
-    assert.strictEqual(errorMessage, null, "성공 시 오류 메시지는 null 이여야함");
+    assert.deepStrictEqual(message, { results: "success" }, "성공 시 메시지는 { results: success } 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 오류는 호출되지 않았어야함");
     assert.strictEqual(mockSocket.id, 10, "성공 시 socket의 id 는 10 이어야함");
     assert.strictEqual(addUserCalled, true, "성공 시 addUser는 호출되었어야함");
