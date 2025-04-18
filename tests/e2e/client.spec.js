@@ -97,7 +97,14 @@ class Client {
                 const payloadString = payloadBuffer.toString('utf8');
                 const payload = JSON.parse(payloadString);
 
-                console.log(payload);
+                switch (packetType) {
+                    case config.header.packetType.S_ERROR_NOTIFICATION : 
+                        console.log(payload);
+                        break;
+                    case config.header.packetType.S_LOGIN_RESPONSE :
+                        await this.click();
+                        break;
+                }
             }
         } catch (err) {
             console.error(err);
