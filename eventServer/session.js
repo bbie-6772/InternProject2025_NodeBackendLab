@@ -6,4 +6,4 @@ import { db } from "../common/database/database.js";
 // 시작 시간 (HH, MM) = HH:MM 
 const jobQueue = new JobQueue();
 export const userRepository = new UsersRepository(db);
-export const userSession = new UserSession(15, 40, jobQueue, userRepository);
+export const userSession = new UserSession(15, 0, jobQueue, userRepository);
