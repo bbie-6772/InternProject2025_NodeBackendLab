@@ -12,7 +12,7 @@ async function testCreateUserSuccess() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.createUser("name", "address");
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, true, "성공 시 반환 값이 true 여야함");
 
     console.log("testCreateUserSuccess: 통과")
@@ -29,7 +29,7 @@ async function testCreateUserFail() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.createUser("name", "address");
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
 
     console.log("testCreateUserFail: 통과")
@@ -46,7 +46,7 @@ async function testFindUserSuccess() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.findUser("name");
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, "result", "성공 시 반환 값이 result 이여야함");
 
     console.log("testFindUserSuccess: 통과")
@@ -63,7 +63,7 @@ async function testFindUserFail() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.findUser("name");
 
-    // 3) 실패 시 응답 대조
+    // 3) 실패 시 값 대조
     assert.strictEqual(result, undefined, "실패 시 반환 값이 undefined 여야함");
 
     console.log("testFindUserFail: 통과")
@@ -80,7 +80,7 @@ async function testGetWinnerSuccess() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.getWinner();
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, "result", "성공 시 반환 값이 result 이여야함");
 
     console.log("testGetWinnerSuccess: 통과")
@@ -97,7 +97,7 @@ async function testGetWinnerFail() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.getWinner();
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, undefined, "실패 시 반환 값이 undefined 여야함");
 
     console.log("testGetWinnerFail: 통과")
@@ -115,7 +115,7 @@ async function testUpdateCountSuccess() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.updateCount(0, 0, 0);
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, true, "성공 시 반환 값이 true 여야함");
 
     console.log("testUpdateCountSuccess: 통과")
@@ -132,7 +132,7 @@ async function testUpdateCountFail() {
     const usersRepository = new UsersRepository(mockDatabase);
     const result = await usersRepository.updateCount(0, 0, 0);
 
-    // 3) 성공 시 응답 대조
+    // 3) 성공 시 값 대조
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
 
     console.log("testUpdateCountFail: 통과")

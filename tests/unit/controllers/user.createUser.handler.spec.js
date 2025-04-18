@@ -40,7 +40,7 @@ async function testCreateUserHandlerSuccess () {
         errorCalled = true;
         console.error(err);
     }
-    // 5) 성공 시 응답 대조
+    // 5) 성공 시 값 대조
     assert.strictEqual(errorMessage, null, "성공 시 오류 메시지는 null 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 오류는 호출되지 않았어야함");
     assert.strictEqual(mockSocket.id, 10, "성공 시 socket의 id 는 10 이어야함");
@@ -87,7 +87,7 @@ async function testCreateUserHandlerFailToSearch() {
         errorCalled = true;
         console.error(err);
     }
-    // 5) 실패 시 응답 대조
+    // 5) 실패 시 값 대조
     assert.deepStrictEqual(errorMessage, { error: "User not found" }, "실패 시 오류 메시지는 { error: User not found} 이여야함");
     assert.strictEqual(errorCalled, true, "실패 시 오류는 호출되어야함");
     assert.strictEqual(mockSocket.id, 1, "실패 시 socket의 id 는 1 이어야함");

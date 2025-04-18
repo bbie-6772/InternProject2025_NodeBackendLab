@@ -11,7 +11,7 @@ async function testParsePacketSuccess () {
     const mockPacket = makePacket(mockPacketType, mockPayload);
     // 4) parsePacket 실행
     const [packetType, payload] = parsePacket(mockPacket);
-    // 5) 성공 시 응답 대조
+    // 5) 성공 시 값 대조
     assert.strictEqual(packetType, mockPacketType, "성공 시 패킷 타입이 동일해야함");
     assert.deepStrictEqual(payload, mockPayload, "성공 시 페이로드가 동일해야함");
 
@@ -27,7 +27,7 @@ async function testParsePacketInvalidPacket() {
     const mockPacket = makePacket(mockPacketType, mockPayload).subarray(7);
     // 4) parsePacket 실행
     const [packetType, payload] = parsePacket(mockPacket);
-    // 5) 실패 시 응답 대조
+    // 5) 실패 시 값 대조
     assert.strictEqual(packetType, undefined, "실패 시 패킷 타입이 undefined 이어야함");
     assert.deepStrictEqual(payload, undefined, "성공 시 페이로드가 undefined 이어야함");
 

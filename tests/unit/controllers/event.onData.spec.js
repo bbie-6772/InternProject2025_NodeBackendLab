@@ -23,7 +23,7 @@ async function testOnDataSuccess () {
     }
     // 5) onData 실행
     await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
-    // 6) 성공 시 응답 대조
+    // 6) 성공 시 값 대조
     assert.deepStrictEqual(result, { test: "success" }, "성공 시 result 값이 보낸값과 동일해야함");
     
     console.log("testOnDataSuccess: 통과");
@@ -50,7 +50,7 @@ async function testOnDataFailToDecode() {
     }
     // 5) onData 실행
     await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
-    // 6) 실패 시 응답 대조
+    // 6) 실패 시 값 대조
     assert.strictEqual(result, false, " 실패 시 result 값이 false 이어야함")
 
     console.log("testOnDataFailToDecode: 통과")
@@ -77,7 +77,7 @@ async function testOnDataFailToDataLength() {
     }
     // 5) onData 실행
     await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
-    // 6) 실패 시 응답 대조
+    // 6) 실패 시 값 대조
     assert.deepStrictEqual(result, undefined, " 실패 시 result 값이 undefined 이어야함")
 
     console.log("testOnDataFailToDataLength: 통과")
@@ -104,7 +104,7 @@ async function testOnDataFailToPacketType() {
     }
     // 5) onData 실행
     await onData(mockSocket, mockHandlers, mockOnEnd)(mockData);
-    // 6) 실패 시 응답 대조
+    // 6) 실패 시 값 대조
     assert.deepStrictEqual(result, false, " 실패 시 result 값이 undefined 이어야함")
 
     console.log("testOnDataFailToPacketType: 통과")
