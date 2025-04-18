@@ -24,12 +24,12 @@ const server = http.createServer((req, res) => {
     handler(req, res);
 });
 
-const startServer = async() => {
+export const startRegisterServer = async(port) => {
     await createSchemas();
 
-    server.listen(config.server.register.port, config.server.register.host, () => {
-        console.log(`서버가 http://${config.server.register.host}:${config.server.register.port}/ 에서 실행 중입니다.`);
+    server.listen(port, () => {
+        console.log(`서버가 ${port} 에서 실행 중입니다.`);
     });
 }
 
-startServer();
+// startRegisterServer(config.server.register.port)

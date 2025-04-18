@@ -6,12 +6,12 @@ import { createSchemas } from '../common/database/database.js';
 
 const server = net.createServer(onConnection);
 
-const startServer = async() => {
+export const startEventServer = async(port) => {
     await createSchemas();
 
-    server.listen(config.server.event.port, config.server.event.host, () => {
-        console.log(`서버가${config.server.event.host}:${config.server.event.port}/ 에서 실행 중입니다.`);
+    server.listen(port, () => {
+        console.log(`서버가 ${port} 에서 실행 중입니다.`);
     });
 }
 
-startServer();
+// startEventServer(config.server.event.port);

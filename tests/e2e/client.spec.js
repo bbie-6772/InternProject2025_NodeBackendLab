@@ -4,9 +4,8 @@ import assert from 'assert';
 import { config } from '../../common/config/config.js';
 
 class Client {
-    constructor (name, address, registerHost, registerPort, eventHost, eventPort) {
+    constructor (name, address, registerPort,  eventPort) {
         // HTTP 통신
-        this.registerHost = registerHost;
         this.registerPort = registerPort;
 
         this.name = name;
@@ -14,17 +13,14 @@ class Client {
         this.token = null;
 
         // TCP 통신
-        this.eventHost = eventHost;
         this.eventPort = eventPort;
-
         this.socket = new net.Socket();
-        this.socket.connect(this.eventPort, this.eventHost, this.onConnections);
+        this.socket.connect(this.eventPort, this.onConnections);
     }
 
     httpRequestTest = async (path, method, expectedStatus, expectedBody, data = '') => {
         return new Promise((resolve, reject) => {
             const options = {
-                hostname: this.registerHost,
                 port: this.registerPort,
                 path,
                 method,
@@ -141,7 +137,7 @@ class Client {
         const payload = {};
         this.sendPacket(config.header.packetType.C_CLICK_REQUEST, payload);
 
-        setTimeout(this.click, Math.random() * 11000 )
+        setTimeout(this.click, Math.random() * 2000 )
     }
 }
 
@@ -155,14 +151,12 @@ const customTest = async (client_count = 1, next = 0) => {
             const client = new Client(
                 name,
                 address,
-                config.server.register.host,
                 config.server.register.port,
-                config.server.event.host,
-                config.server.event.port
+                config.server.event.port + 16
             );
 
             // 메서드 적용
-            // await client.registerRequest();
+            await client.registerRequest();
             await client.createUser();
             await client.click();
         }),
