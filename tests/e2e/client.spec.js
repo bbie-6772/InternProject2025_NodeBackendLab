@@ -139,6 +139,12 @@ class Client {
 
         setTimeout(this.click, Math.random() * 2000 )
     }
+
+    getWinner = async () => {
+        const payload = {}
+        this.sendPacket(config.header.packetType.C_GET_WINNER_REQUEST, payload);
+    }
+
 }
 
 // 커스텀
