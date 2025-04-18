@@ -66,6 +66,7 @@ class Client {
     }
 
     onConnections = async () => {
+        this.socket.buffer = Buffer.alloc(0);
         console.log("TCP 서버와 연결되었습니다.")
         this.socket.on('end', this.onEnd);
         this.socket.on('data', this.onData);
@@ -73,24 +74,24 @@ class Client {
     }
 
     onData = async (data) => {
-        socket.buffer = Buffer.concat([socket.buffer, data]);
+        this.socket.buffer = Buffer.concat([this.socket.buffer, data]);
         const packetTypeByte = config.header.packetTypeByte;
         const payloadLengthByte = config.header.payloadLengthByte;
         let payloadByte = 0;
         const defaultLength = packetTypeByte + payloadLengthByte
 
         try {
-            while (socket.buffer.length >= defaultLength) {
+            while (this.socket.buffer.length >= defaultLength) {
                 try {
-                    payloadByte = socket.buffer.readUInt32BE(packetTypeByte);
+                    payloadByte = this.socket.buffer.readUInt32BE(packetTypeByte);
                 } catch (err) {
                     onEnd(socket)();
                     break;
                 }
 
-                if (socket.buffer.length < defaultLength + payloadByte) break;
-                const packet = socket.buffer.subarray(0, defaultLength + payloadByte);
-                socket.buffer = socket.buffer.subarray(defaultLength + payloadByte);
+                if (this.socket.buffer.length < defaultLength + payloadByte) break;
+                const packet = this.socket.buffer.subarray(0, defaultLength + payloadByte);
+                this.socket.buffer = this.socket.buffer.subarray(defaultLength + payloadByte);
 
                 const packetType = packet.readUInt16BE(0);
                 const payloadBuffer = packet.subarray(defaultLength, defaultLength + payloadByte);
