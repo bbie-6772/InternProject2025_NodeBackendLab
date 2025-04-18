@@ -3,7 +3,6 @@ import { handlers } from "../handlers/index.js";
 import { onEnd } from "./onEnd.js";
 
 export const onData = (socket) => async (data) => {
-
     socket.buffer = Buffer.concat([socket.buffer, data]);
     const packetTypeByte = config.header.packetTypeByte;
     const payloadLengthByte = config.header.payloadLengthByte;
@@ -25,9 +24,11 @@ export const onData = (socket) => async (data) => {
 
             const packetType = packet.readUInt16BE(0);
             const payloadBuffer = packet.subarray(defaultLength, defaultLength + payloadByte);
+            const payloadString = payloadBuffer.toString('utf8');
+            const payload = JSON.parse(payloadString);
 
             const handler = handlers[packetType];
-            await handler( socket, payloadBuffer );
+            await handler( socket, payload );
         }
     } catch (err) {
         console.error(err);
