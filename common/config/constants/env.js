@@ -20,8 +20,8 @@ evnFile.split('\n').forEach((line) => {
     env[name.trim()] = value;
 })
 
-export const LOGIN_SERVER_HOST = env.LOGIN_SERVER_HOST || '0.0.0.0'
-export const LOGIN_SERVER_PORT = env.LOGIN_SERVER_PORT || 5555;
+export const REGISTER_SERVER_HOST = env.REGISTER_SERVER_HOST || '0.0.0.0'
+export const REGISTER_SERVER_PORT = env.REGISTER_SERVER_PORT || 5555;
 
 export const EVENT_SERVER_HOST = env.EVENT_SERVER_HOST || '0.0.0.0'
 export const EVENT_SERVER_PORT = env.EVENT_SERVER_PORT || 5556;

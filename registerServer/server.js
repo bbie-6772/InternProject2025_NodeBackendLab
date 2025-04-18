@@ -1,15 +1,15 @@
 import http from 'http';
 import { config } from '../common/config/config.js';
-import { accountRouter } from './routes/account.router.js';
+import { usersRouter } from './routes/users.router.js';
 import { createSchemas } from './database/database.js';
 
-const routes = { ...accountRouter,};  
+const routes = { ...usersRouter,};  
 
 const server = http.createServer((req, res) => {
     const handler = routes[req.url];
     if (handler) handler(req, res);
     else {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end('404 ERROR - Can not find page');
     }
 });
@@ -17,8 +17,8 @@ const server = http.createServer((req, res) => {
 const startServer = async() => {
     await createSchemas();
 
-    server.listen(config.LOGIN_SERVER.port, config.LOGIN_SERVER.host, () => {
-        console.log(`서버가 http://${config.LOGIN_SERVER.host}:${config.LOGIN_SERVER.port}/ 에서 실행 중입니다.`);
+    server.listen(config.REGISTER_SERVER.port, config.REGISTER_SERVER.host, () => {
+        console.log(`서버가 http://${config.REGISTER_SERVER.host}:${config.REGISTER_SERVER.port}/ 에서 실행 중입니다.`);
     });
 }
 
