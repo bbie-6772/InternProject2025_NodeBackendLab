@@ -5,9 +5,9 @@ export class UsersRepository {
         this.db = database;
     }
 
-    createUser = async (name, password) => {
+    createUser = async (name, address) => {
         const query = this.db.prepare(USERS_QUERIES.CREATE_USER);
-        const { changes } = await query.run(name, password);
+        const { changes } = await query.run(name, address);
         return changes > 0;
     }
 }
