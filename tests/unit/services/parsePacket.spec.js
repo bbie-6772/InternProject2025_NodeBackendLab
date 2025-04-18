@@ -35,8 +35,8 @@ async function testParsePacketInvalidPacket() {
 }
 
 await Promise.all([
-    testParsePacketSuccess,
-    testParsePacketInvalidPacket,
+    testParsePacketSuccess(),
+    testParsePacketInvalidPacket(),
 ])
 
 console.log("parsePacket 테스트 완료")

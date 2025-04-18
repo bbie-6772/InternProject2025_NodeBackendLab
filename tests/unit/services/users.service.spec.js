@@ -80,8 +80,8 @@ async function testCreateUserError() {
 }
 
 await Promise.all([
-    testCreateUserSuccess,
-    testCreateUserError,
+    testCreateUserSuccess(),
+    testCreateUserError(),
 ])
 
 console.log("UsersService 테스트 완료")

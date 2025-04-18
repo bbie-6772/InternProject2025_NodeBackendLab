@@ -54,8 +54,8 @@ async function testOnEndFailToNoId() {
 }  
 
 await Promise.all([
-    testOnEndSuccess,
-    testOnEndFailToNoId,
+    testOnEndSuccess(),
+    testOnEndFailToNoId(),
 ])
 
 console.log("onEnd 테스트 완료 ")

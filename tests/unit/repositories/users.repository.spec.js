@@ -192,14 +192,14 @@ async function testUpdateCountFail() {
 }
 
 await Promise.all([
-    testCreateUserSuccess,
-    testCreateUserFail,
-    testFindUserSuccess,
-    testFindUserFail,
-    testGetWinnerSuccess,
-    testGetWinnerFail,
-    testUpdateCountSuccess,
-    testUpdateCountFail
+    testCreateUserSuccess(),
+    testCreateUserFail(),
+    testFindUserSuccess(),
+    testFindUserFail(),
+    testGetWinnerSuccess(),
+    testGetWinnerFail(),
+    testUpdateCountSuccess(),
+    testUpdateCountFail()
 ])
 
 console.log("UsersRepository 테스트 완료")

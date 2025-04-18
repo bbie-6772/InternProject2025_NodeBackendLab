@@ -62,9 +62,9 @@ async function testAddCountTooSlowClick() {
 }
 
 await Promise.all([
-    testAddCountSuccess,
-    testAddCountTooManyClick,
-    testAddCountTooSlowClick
+    testAddCountSuccess(),
+    testAddCountTooManyClick(),
+    testAddCountTooSlowClick()
 ])
 
 console.log("User Class 테스트 완료");

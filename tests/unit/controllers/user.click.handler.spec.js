@@ -74,8 +74,8 @@ async function testClickHandlerFailToSearch() {
 }
 
 await Promise.all([
-    testClickHandlerSuccess,
-    testClickHandlerFailToSearch,
+    testClickHandlerSuccess(),
+    testClickHandlerFailToSearch(),
 ])
 
 console.log("clickHandler 테스트 완료");

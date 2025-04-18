@@ -33,8 +33,8 @@ async function testMakePacketInvalidPayload() {
 }
 
 await Promise.all([
-    testMakePacketSuccess,
-    testMakePacketInvalidPayload,
+    testMakePacketSuccess(),
+    testMakePacketInvalidPayload(),
 ])
 
 console.log("makePacket 테스트 완료")

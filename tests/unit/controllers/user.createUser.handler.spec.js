@@ -95,8 +95,8 @@ async function testCreateUserHandlerFailToSearch() {
 }
 
 await Promise.all([
-    testCreateUserHandlerSuccess,
-    testCreateUserHandlerFailToSearch,
+    testCreateUserHandlerSuccess(),
+    testCreateUserHandlerFailToSearch(),
 ])
 
 console.log("createUserHandler 테스트 완료");
