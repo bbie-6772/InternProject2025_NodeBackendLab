@@ -118,19 +118,19 @@ const customTest = async (client_count = 1, next = 0) => {
     await Promise.all(
         Array.from({ length: client_count }, async (__, idx) => {
             const name = `dummy${next * client_count + idx}`;
-            const password = 'Republic of Korea';
+            const address = 'Republic of Korea';
 
             const client = new Client(
                 name,
-                password,
+                address,
                 config.server.register.host,
                 config.server.register.port,
                 config.server.event.host,
                 config.server.event.port
             );
 
-            // 로그인 이후 사용할 메서드 적용
-            await client.registerRequest();
+            // 메서드 적용
+            await client.createUser();
         }),
     );
 };
