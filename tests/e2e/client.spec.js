@@ -1,7 +1,10 @@
 import http from 'http';
 import net from 'net';
+import os from 'os';
 import assert from 'assert';
 import { config } from '../../common/config/config.js';
+
+const numCPUs = os.cpus().length;  
 
 class Client {
     constructor (name, address, registerPort,  eventPort) {
@@ -147,8 +150,8 @@ class Client {
 
 }
 
-// 커스텀
-const customTest = async (client_count = 1, next = 0) => {
+// 클러스터용 테스트
+const clusterTest = async (client_count = 1, next = 0) => {
     await Promise.all(
         Array.from({ length: client_count }, async (__, idx) => {
             const name = `dummy${next * client_count + idx}`;
@@ -158,19 +161,43 @@ const customTest = async (client_count = 1, next = 0) => {
                 name,
                 address,
                 config.server.register.port,
-                config.server.event.port + 16
+                // 클러스터 모드에 의해 + 1 이상의 포트로 연결
+                config.server.event.port + Math.max(Math.round(Math.random() * numCPUs),1)
             );
 
             // 메서드 적용
             await client.registerRequest();
             await client.createUser();
-            await client.click();
+        }),
+    );
+};
+
+// 기본 테스트
+const defaultTest = async (client_count = 1, next = 0) => {
+    await Promise.all(
+        Array.from({ length: client_count }, async (__, idx) => {
+            const name = `dummy${next * client_count + idx}`;
+            const address = 'Republic of Korea';
+
+            const client = new Client(
+                name,
+                address,
+                config.server.register.port,
+                config.server.event.port
+            );
+
+            // 메서드 적용
+            await client.registerRequest();
+            await client.createUser();
         }),
     );
 };
 
 // 부하 테스트 실행문
 for (let i = 0; i < 5; i++) {
-    await customTest(5, i);
+    // 일반 테스트
+    // await defaultTest(5, i);
+    // 클러스터 테스트
+    await clusterTest(5, i);
     await new Promise((resolve) => setTimeout(() => resolve(), 1000));
 }
