@@ -1,4 +1,4 @@
-import { REGISTER_SERVER_HOST, REGISTER_SERVER_PORT, EVENT_SERVER_HOST, EVENT_SERVER_PORT } from "./constants/env.js";
+import { REGISTER_SERVER_PORT, EVENT_SERVER_PORT } from "./constants/env.js";
 import { PACKET_TYPE, PACKET_TYPE_BYTE, PAYLOAD_LENGTH_BYTE } from "./constants/header.js";
 
 export const config = {
