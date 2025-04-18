@@ -5,24 +5,11 @@ export class UsersController {
 
     createUser = async (req, res) => {
         try {
-            console.log(req.body);
-
-            await this.userService.createUser();
+            await this.userService.createUser(req, res);
         } catch (err) {
             console.error(err);
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end('400 - Bad Request');
+            res.end(JSON.stringify({ error: 'Bad Request' }));
         }
     }
-
-    findUserByName = async (req, res) => {
-        try {
-
-        } catch (err) {
-            console.error(err);
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end('400 - Bad Request');
-        }
-    }
-
 }
