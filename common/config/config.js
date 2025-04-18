@@ -4,11 +4,9 @@ import { PACKET_TYPE, PACKET_TYPE_BYTE, PAYLOAD_LENGTH_BYTE } from "./constants/
 export const config = {
     server: {
         register: {
-            host: REGISTER_SERVER_HOST,
             port: +REGISTER_SERVER_PORT
         },
         event: {
-            host: EVENT_SERVER_HOST,
             port: +EVENT_SERVER_PORT
         }
     },
