@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (  
-      id          INT AUTO_INCREMENT PRIMARY KEY,  
-      name        VARCHAR(255) UNIQUE,  
-      address    VARCHAR(255)
-);
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,  
+  name        TEXT UNIQUE,  
+  address     TEXT,  
+  click_count INTEGER DEFAULT 0  
+);  
