@@ -15,7 +15,7 @@ async function testClickHandlerSuccess() {
         id: 1
     }
     // 2) deps 모킹
-    const MockDeps = {
+    const mockDeps = {
         userSession: {
             getUserById: (id) => {
                 return {
@@ -28,7 +28,7 @@ async function testClickHandlerSuccess() {
     };
     // 3) clickHandler 실행
     try {
-        await clickHandler(mockSocket, null, MockDeps);
+        await clickHandler(mockSocket, null, mockDeps);
     } catch (err) {
         errorCalled = true;
         console.error(err);
@@ -53,7 +53,7 @@ async function testClickHandlerFailToSearch() {
         id: 1
     }
     // 2) deps 모킹
-    const MockDeps = {
+    const mockDeps = {
         userSession: {
             getUserById: (id) => {
                 return undefined;
@@ -62,7 +62,7 @@ async function testClickHandlerFailToSearch() {
     };
     // 3) clickHandler 실행
     try {
-        await clickHandler(mockSocket, null, MockDeps);
+        await clickHandler(mockSocket, null, mockDeps);
     } catch (err) {
         errorCalled = true;
         console.error(err);

@@ -14,9 +14,9 @@ async function testCreateUserHandlerSuccess () {
         id : 1
     }
     // 2) payload 모킹
-    const MockPayload = { name: "name"};
+    const mockPayload = { name: "name"};
     // 3) deps 모킹
-    const MockDeps = {
+    const mockDeps = {
         userRepository : {
             findUser : async (name) => {
                 return;
@@ -35,7 +35,7 @@ async function testCreateUserHandlerSuccess () {
     };
     // 4) createUserHandler 실행
     try {
-        await createUserHandler(mockSocket, MockPayload, MockDeps);
+        await createUserHandler(mockSocket, mockPayload, mockDeps);
     } catch (err) {
         errorCalled = true;
         console.error(err);
@@ -61,9 +61,9 @@ async function testCreateUserHandlerFailToSearch() {
         id: 1
     }
     // 2) payload 모킹
-    const MockPayload = { name: "name" };
+    const mockPayload = { name: "name" };
     // 3) deps 모킹
-    const MockDeps = {
+    const mockDeps = {
         userRepository: {
             findUser: async (name) => {
                 return;
@@ -82,7 +82,7 @@ async function testCreateUserHandlerFailToSearch() {
     };
     // 4) createUserHandler 실행
     try {
-        await createUserHandler(mockSocket, MockPayload, MockDeps);
+        await createUserHandler(mockSocket, mockPayload, mockDeps);
     } catch (err) {
         errorCalled = true;
         console.error(err);
