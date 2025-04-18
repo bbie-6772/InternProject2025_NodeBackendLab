@@ -5,11 +5,11 @@ export const createUserHandler = async (socket, payload, deps) => {
     const { userRepository, userSession } = deps;
     const { name } = payload;
 
-    const results = await userSession.jobQueue.enqueue(() => userRepository.findUser(name) );
+    const results = await userSession.jobQueue.enqueue(async () => await userRepository.findUser(name) );
     if (!results) {
         const response = { error: "User not found"};
         const packet = makePacket(config.header.packetType.S_ERROR_NOTIFICATION, response );
-        socket.write(packet);
+        await socket.write(packet);
         throw new Error("User not found")
     }
 
