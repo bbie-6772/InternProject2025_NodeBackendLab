@@ -9,8 +9,8 @@ const mockMinutes = now.getMinutes();
 
 // userRepository 모킹 
 const mockUserRepository = {
-    updateCount: () => { },
-    getWinner: () => { }
+    updateCount: async () => { return;},
+    getWinner: async () => { return; }
 }
 
 // id 모킹
@@ -18,7 +18,7 @@ const mockId = 1
 
 async function testTimeStartSuccess() {
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue : async () => {} }
+    const mockJobQueue = { enqueue : () => {} }
     // 2) UserSession 생성(+ 자동호출)
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     // 3) 성공 시 값 대조 
@@ -53,7 +53,7 @@ async function testTimeStartSuccess() {
 
 async function testAddUserSuccess() {
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { } }
+    const mockJobQueue = { enqueue: () => { } }
     // 2) UserSession 생성 및 addUser 호출
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
@@ -66,7 +66,7 @@ async function testAddUserSuccess() {
 
 async function testGetUserByIdSuccess() {
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { } }
+    const mockJobQueue = { enqueue: () => { } }
     // 2) UserSession 생성 및 addUser + getUserById 호출
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
@@ -79,7 +79,7 @@ async function testGetUserByIdSuccess() {
 
 async function testDeleteUserByIdSuccess() {
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { } }
+    const mockJobQueue = { enqueue: () => { } }
     // 2) UserSession 생성 및 addUser + deleteUserById 호출
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
@@ -95,7 +95,7 @@ async function testCountUploadSuccess() {
     let jobQueueCalled = false;
     let errorCalled = false;
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { jobQueueCalled = true; }};
+    const mockJobQueue = { enqueue: () => { jobQueueCalled = true; }};
     // 2) UserSession 생성 및 addUser + getUserById 및 user.addCount 호출 (시뮬레이션)
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
@@ -128,7 +128,7 @@ async function testCountUploadFail() {
     let jobQueueCalled = false;
     let errorCalled = false;
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { throw new Error; }};
+    const mockJobQueue = { enqueue: () => { throw new Error; }};
     // 2) UserSession 생성 및 addUser + getUserById 및 user.addCount 호출 (시뮬레이션)
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
@@ -161,7 +161,7 @@ async function testGetWinnerSuccess() {
     let jobQueueCalled = false;
     let errorCalled = false;
     // 1) jobQueue 모킹
-    const mockJobQueue = { enqueue: async () => { 
+    const mockJobQueue = { enqueue: () => { 
         jobQueueCalled = true;  
         return { test : "success" };
     } };
@@ -188,7 +188,7 @@ async function testGetWinnerFail() {
     let errorCalled = false;
     // 1) jobQueue 모킹
     const mockJobQueue = {
-        enqueue: async () => {
+        enqueue: () => {
             jobQueueCalled = true;
             throw new Error;
         }

@@ -34,7 +34,8 @@ export class UserSession {
             // console.log("끝");
             await this.countUpload();
 
-            setTimeout(async () => console.log(await this.getWinner()), 5000);
+            // 결과 확인용 ( 단위 테스트 시 오류 발생으로 주석처리 )
+            //setTimeout(async () => console.log(await this.getWinner()), 5000);
         }, delay)
     }
 
