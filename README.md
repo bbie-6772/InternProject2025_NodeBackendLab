@@ -60,6 +60,22 @@
     ```
 
 5. 설정된 시간을 기준으로 1분 이후 우승자 결과가 cluster 터미널 화면에 확인된다!
+( 현재 단위 테스트에서 오류가 나는 부분이 있어 주석처리 해두었습니다 )
+
+```jsx
+// eventServer/classes/session/userSession.class.js 
+this.timer = setTimeout( async ()=> {
+    this.isOpen = true;
+    // console.log("시작");
+    await new Promise((resolve) => setTimeout(() => resolve(), 60000));
+    this.isOpen = false;
+    // console.log("끝");
+    await this.countUpload();
+
+    // 결과 확인용 ( 단위 테스트 시 오류 발생으로 주석처리 )
+    //setTimeout(async () => console.log(await this.getWinner()), 5000);
+}, delay)
+```
 
 ![Image](https://github.com/user-attachments/assets/9433b265-a5fa-4c29-acc7-8352f19369db)
 
