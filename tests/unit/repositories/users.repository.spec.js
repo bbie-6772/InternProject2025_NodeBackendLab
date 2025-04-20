@@ -17,7 +17,7 @@ async function testCreateUserSuccess() {
     } catch (err) {
         errorCalled = true;
     }
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(result, true, "성공 시 반환 값이 true 여야함");
     assert.strictEqual(errorCalled, false, "성공 시 에러가 호출되지 않았어야함");
 
@@ -39,7 +39,7 @@ async function testCreateUserFail() {
     } catch (err) {
         errorCalled = true;
     }
-    // 3) 실패 시 값 대조
+    // 3) 실패 시 값 비교
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
     assert.strictEqual(errorCalled, true, "실패 시 에러가 호출되었어야함");
 
@@ -63,7 +63,7 @@ async function testFindUserSuccess() {
         errorCalled = true;
     }
     
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(result, "result", "성공 시 반환 값이 result 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 에러가 호출되지 않았어야함");
 
@@ -87,7 +87,7 @@ async function testFindUserFail() {
         errorCalled = true;
     }
 
-    // 3) 실패 시 값 대조
+    // 3) 실패 시 값 비교
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
     assert.strictEqual(errorCalled, true, "실패 시 에러가 호출되었어야함");
 
@@ -111,7 +111,7 @@ async function testGetWinnerSuccess() {
         errorCalled = true;
     }
 
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(result, "result", "성공 시 반환 값이 result 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 에러가 호출되지 않았어야함");
 
@@ -135,7 +135,7 @@ async function testGetWinnerFail() {
         errorCalled = true;
     }
 
-    // 3) 실패 시 값 대조
+    // 3) 실패 시 값 비교
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
     assert.strictEqual(errorCalled, true, "실패 시 에러가 호출되었어야함");
 
@@ -160,7 +160,7 @@ async function testUpdateCountSuccess() {
         errorCalled = true;
     }
 
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(result, true, "성공 시 반환 값이 true 여야함");
     assert.strictEqual(errorCalled, false, "성공 시 에러가 호출되지 않았어야함");
 
@@ -184,7 +184,7 @@ async function testUpdateCountFail() {
         errorCalled = true;
     }
 
-    // 3) 실패 시 값 대조
+    // 3) 실패 시 값 비교
     assert.strictEqual(result, false, "실패 시 반환 값이 false 여야함");
     assert.strictEqual(errorCalled, true, "실패 시 에러가 호출되었어야함");
 

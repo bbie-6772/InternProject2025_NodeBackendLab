@@ -55,7 +55,7 @@ async function testCreateUserError() {
     const usersController = new UsersController(mockUsersService);
     await usersController.createUser(mockReq, mockRes);
 
-    // 4) 성공 시 값 대조
+    // 4) 성공 시 값 비교
     assert.strictEqual(statusCode, 400, "오류 시 statusCode는 400 이여야함");
     assert.deepStrictEqual(headers, { 'Content-Type': 'application/json' }, "오류 시 Content-Type 맞아야 함");
     assert.strictEqual(body, JSON.stringify({ error: 'Bad Request' }), "오류 시 값 body 정확해야 함");

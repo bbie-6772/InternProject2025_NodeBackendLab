@@ -32,7 +32,7 @@ async function testClickHandlerSuccess() {
     } catch (err) {
         errorCalled = true;
     }
-    // 4) 성공 시 값 대조
+    // 4) 성공 시 값 비교
     assert.strictEqual(errorMessage, null, "성공 시 오류 메시지는 null 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 오류는 호출되지 않았어야함");
     assert.strictEqual(addCountCalled, true, "성공 시 addCount는 호출되었어야함");
@@ -65,7 +65,7 @@ async function testClickHandlerFailToSearch() {
     } catch (err) {
         errorCalled = true;
     }
-    // 4) 실패 시 값 대조
+    // 4) 실패 시 값 비교
     assert.deepStrictEqual(errorMessage, { error: "User not found" }, "실패 시 오류 메시지는 { error: User not found} 이여야함");
     assert.strictEqual(errorCalled, true, "실패 시 오류는 호출되어야함");
     assert.strictEqual(addCountCalled, false, "성공 시 addCount는 호출되지 않았어야함");

@@ -21,7 +21,7 @@ async function testTimeStartSuccess() {
     const mockJobQueue = { enqueue : () => {} }
     // 2) UserSession 생성(+ 자동호출)
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
-    // 3) 성공 시 값 대조 
+    // 3) 성공 시 값 비교 
     const newNow = new Date();
     const delay = now - newNow;
     await new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ async function testTimeStartSuccess() {
             resolve();
         }, delay);
     });
-    // 4) 1분 뒤 값 대조
+    // 4) 1분 뒤 값 비교
     await new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
@@ -57,7 +57,7 @@ async function testAddUserSuccess() {
     // 2) UserSession 생성 및 addUser 호출
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(userSession.users.size, 1 , "성공 시 유저 수가 1 이여야함 ");
     assert.notStrictEqual(userSession.users.get(1), undefined, "성공 시 key가 1 인 유저가 존재 하여야함 ");
 
@@ -71,7 +71,7 @@ async function testGetUserByIdSuccess() {
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
     const user = userSession.getUserById(mockId);
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.notStrictEqual(user, undefined, "user 가 존재 하여야함 ");
 
     console.log("testGetUserByIdSuccess: 통과");
@@ -84,7 +84,7 @@ async function testDeleteUserByIdSuccess() {
     const userSession = new UserSession(mockHour, mockMinutes, mockJobQueue, mockUserRepository);
     userSession.addUser(mockId);
     userSession.deleteUserById(mockId);
-    // 3) 성공 시 값 대조
+    // 3) 성공 시 값 비교
     assert.strictEqual(userSession.users.size, 0, "성공 시 유저 수가 0 이여야함 ");
     assert.strictEqual(userSession.users.get(1), undefined, "성공 시 key가 1 인 유저가 존재하지 않아야함 ");
 
@@ -117,7 +117,7 @@ async function testCountUploadSuccess() {
         errorCalled = true;
     }
     
-    // 4) 성공 시 값 대조
+    // 4) 성공 시 값 비교
     assert.strictEqual(jobQueueCalled, true, "성공 시 jobQueue 의 enqueue가 호출 되여야함 ");
     assert.strictEqual(errorCalled, false, "성공 시 오류가 호출되지 않아야함 ");
 
@@ -149,7 +149,7 @@ async function testCountUploadFail() {
     } catch (err) {
         errorCalled = true;
     }
-    // 4) 실패 시 값 대조
+    // 4) 실패 시 값 비교
     assert.strictEqual(jobQueueCalled, false, "실패 시 jobQueue 의 enqueue가 호출되지 않아야함 ");
     assert.strictEqual(errorCalled, true, "실패 시 오류가 호출되어야함 ");
 
@@ -174,7 +174,7 @@ async function testGetWinnerSuccess() {
         errorCalled = true;
     }
 
-    // 4) 성공 시 값 대조
+    // 4) 성공 시 값 비교
     assert.deepStrictEqual(result, { test: "success" }, "성공 시 result가 { test: success } 이어야함 ");
     assert.strictEqual(jobQueueCalled, true, "성공 시 jobQueue 의 enqueue가 호출 되여야함 ");
     assert.strictEqual(errorCalled, false, "성공 시 오류가 호출되지 않아야함 ");
@@ -202,7 +202,7 @@ async function testGetWinnerFail() {
         errorCalled = true;
     }
 
-    // 4) 성공 시 값 대조
+    // 4) 성공 시 값 비교
     assert.deepStrictEqual(result, null, "실패 시 result가 null 이어야함 ");
     assert.strictEqual(jobQueueCalled, true, "실패 시 jobQueue 의 enqueue가 호출 되여야함 ");
     assert.strictEqual(errorCalled, true, "실패 시 오류가 호출되어야함 ");

@@ -23,7 +23,7 @@ async function testOnErrorSuccess() {
     const mockErr = "testOnErrorSuccess 오류 메시지"
     // 4) onError 실행
     await onError(mockSocket, mockUserSession)(mockErr);
-    // 5) 성공 시 값 대조
+    // 5) 성공 시 값 비교
     assert.strictEqual(userDeleteCalled, true, "성공 시 deleteUserById 가 실행되었어야함")
     assert.strictEqual(endCalled, true, "성공 시 end 가 실행되었어야함")
     assert.strictEqual(destroyCalled, true, "성공 시 destroy 가 실행되었어야함")
@@ -49,7 +49,7 @@ async function testOnErrorFailToNoId() {
     const mockErr = "testOnErrorFailToNoId 오류 메시지"
     // 4) onError 실행
     await onError(mockSocket, mockUserSession)(mockErr);
-    // 5) 실패 시 값 대조
+    // 5) 실패 시 값 비교
     assert.strictEqual(userDeleteCalled, false, "id 없으면 deleteUserById 호출 없어야 함");
     assert.strictEqual(endCalled, true, "end 호출되어야 함");
     assert.strictEqual(destroyCalled, true, "destroy 호출되어야 함");
