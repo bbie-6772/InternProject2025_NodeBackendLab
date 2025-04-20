@@ -119,6 +119,10 @@
 
 ![Image](https://github.com/user-attachments/assets/dc5875f7-d62b-4616-9cde-8f97d218fb9d)
 
+### ERD
+
+![Image](https://github.com/user-attachments/assets/0bc26c7c-89da-4ffa-a3ab-402861564910)
+
 ### 패킷 명세서
 
 ![Image](https://github.com/user-attachments/assets/9dcc74ae-7def-4891-9073-f79fe56c754b)
