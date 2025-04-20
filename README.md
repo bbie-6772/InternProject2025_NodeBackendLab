@@ -81,6 +81,9 @@ this.timer = setTimeout( async ()=> {
 
 ### 일반 모드
 
+**회원가입 오류 시 database.sqlite 파일을 지워주세요!**  
+(중복 회원가입 불가)
+
 1. Repository를 복제하여 IDE로 폴더를 연다.
 
 2. eventServer/session.js 파일로 들어가 시간 설정을 해준다.
