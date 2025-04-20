@@ -11,7 +11,7 @@ async function testMakePacketSuccess () {
     const packet = makePacket(mockPacketType, mockPayload);
     // 4) parsePacket 실행
     const [ packetType , payload ] = parsePacket(packet);
-    // 5) 성공 시 값 비교
+    // 5) 반환 값 비교
     assert.strictEqual(mockPacketType, packetType, "성공 시 패킷 타입이 동일해야함");
     assert.deepStrictEqual(mockPayload, payload, "성공 시 페이로드가 동일해야함");
 

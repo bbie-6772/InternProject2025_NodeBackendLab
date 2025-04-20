@@ -27,7 +27,7 @@ async function testGetWinnerSuccess () {
     } catch (err) {
         errorCalled = true;
     }
-    // 5) 성공 시 값 비교
+    // 5) 반환 값 비교
     assert.deepStrictEqual(message, { test: "success" }, "성공 시 메시지는 { test : success} 이여야함");
     assert.strictEqual(errorCalled, false, "성공 시 오류는 호출되지 않았어야함");
 
@@ -59,7 +59,7 @@ async function testGetWinnerFailToSearch() {
     } catch (err) {
         errorCalled = true;
     }
-    // 5) 성공 시 값 비교
+    // 5) 반환 값 비교
     assert.deepStrictEqual(message, { error: "Winner not found" }, "실패 시 메시지는 { error: User not found} 이여야함");
     assert.strictEqual(errorCalled, true, "실패 시 오류는 호출되어야함");
 

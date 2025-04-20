@@ -21,7 +21,7 @@ async function testOnEndSuccess () {
     }
     // 3) onEnd 실행
     await onEnd(mockSocket,mockUserSession)();
-    // 4) 성공 시 값 비교
+    // 4) 반환 값 비교
     assert.strictEqual(userDeleteCalled, true, "성공 시 deleteUserById 가 실행되었어야함")
     assert.strictEqual(endCalled, true, "성공 시 end 가 실행되었어야함")
     assert.strictEqual(destroyCalled, true, "성공 시 destroy 가 실행되었어야함")
@@ -45,7 +45,7 @@ async function testOnEndFailToNoId() {
     };
     // 3) onEnd 실행
     await onEnd(mockSocket, mockUserSession)();
-    // 4) 실패 시 값 비교
+    // 4) 반환 값 비교
     assert.strictEqual(userDeleteCalled, false, "id 없으면 deleteUserById 호출 없어야 함");
     assert.strictEqual(endCalled, true, "end 호출되어야 함");
     assert.strictEqual(destroyCalled, true, "destroy 호출되어야 함");

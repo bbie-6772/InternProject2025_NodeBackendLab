@@ -38,7 +38,7 @@ async function testCreateUserSuccess() {
     const usersService = new UsersService(mockUsersRepository, mockParsJson, mockJobQueue);
     await usersService.createUser(mockReq, mockRes);
 
-    // 4) 성공 시 값 비교
+    // 4) 반환 값 비교
     assert.strictEqual(statusCode, 200, "성공 시 statusCode는 200 이여야함");
     assert.deepStrictEqual(headers, { 'Content-Type': 'application/json' }, "성공 시 Content-Type 맞아야 함")
     assert.strictEqual(body, JSON.stringify({ results: 'Success' }), "성공 시 값 body 정확해야 함")
