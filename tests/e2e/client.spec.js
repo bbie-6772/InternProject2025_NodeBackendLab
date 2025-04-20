@@ -18,7 +18,7 @@ class Client {
         // TCP 통신
         this.eventPort = eventPort;
         this.socket = new net.Socket();
-        this.socket.connect(this.eventPort, this.onConnections);
+       
     }
 
     httpRequestTest = async (path, method, expectedStatus, expectedBody, data = '') => {
@@ -61,7 +61,9 @@ class Client {
         const expectedResponse = JSON.stringify({ results: 'Success' });
         const data = JSON.stringify({ name: this.name, address: this.address });
         await this.httpRequestTest('/register', 'POST', 200, expectedResponse, data);
-        console.log('Register response passed');  
+        console.log('회원가입 성공!');  
+        this.socket.connect(this.eventPort, this.onConnections);
+        await this.createUser();
     }
 
     onConnections = async () => {
@@ -174,7 +176,6 @@ const clusterTest = async (client_count = 1, next = 0) => {
 
             // 메서드 적용
             await client.registerRequest();
-            await client.createUser();
         }),
     );
 };
@@ -195,7 +196,6 @@ const defaultTest = async (client_count = 1, next = 0) => {
 
             // 메서드 적용
             await client.registerRequest();
-            await client.createUser();
         }),
     );
 };
