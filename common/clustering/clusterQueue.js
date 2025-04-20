@@ -3,22 +3,23 @@ export class ClusterQueue {
         this.process = processObj;
         this.nextRequestId = 0;
         this.pendingRequests = new Map();  
-
-        // 응답 받는 이벤트 처리  
-        process.on('message', (msg) => {
-            const { id, result, error } = msg;
-            if (!this.pendingRequests.has(id)) return
-
-            const { resolve, reject } = this.pendingRequests.get(id);
-
-            if (error) {
-                reject(new Error(error));
-            } else {
-                resolve(result);
-            }
-            this.pendingRequests.delete(id);  
-        });
+        this.process.on('message', this.processMessage);  
     }
+
+    processMessage = (msg) => {
+        const { id, result, error } = msg;
+        if (!this.pendingRequests.has(id)) return;
+
+        const { resolve, reject } = this.pendingRequests.get(id);
+
+        if (error) {
+            reject(new Error(error));
+        } else {
+            resolve(result);
+        }
+
+        this.pendingRequests.delete(id);
+    }  
 
     async sendRequestToMaster(msg) {
         return new Promise((resolve, reject) => {
