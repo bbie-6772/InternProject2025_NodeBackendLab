@@ -1,5 +1,6 @@
 export class ClusterQueue {
-    constructor () {
+    constructor(processObj = process) {
+        this.process = processObj;
         this.nextRequestId = 0;
         this.pendingRequests = new Map();  
 
